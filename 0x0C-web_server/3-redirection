@@ -37,8 +37,8 @@ server {
 echo "$SERVER_CONFIG" > /etc/nginx/sites-enabled/default
 
 # Check if Nginx is running and start or restart it
-if systemctl is-active --quiet nginx; then
-    systemctl restart nginx
+if [ "$(pgrep -c nginx)" -le 0 ]; then
+    service nginx start
 else
-    systemctl start nginx
+    service nginx restart
 fi
