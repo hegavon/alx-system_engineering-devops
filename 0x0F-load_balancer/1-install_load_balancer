@@ -39,4 +39,5 @@ backend http_back
 EOT
 
 # Restart HAProxy
-sudo systemctl restart haproxy
+
+sudo systemctl start haproxy
