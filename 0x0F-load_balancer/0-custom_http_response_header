@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # duplicate web-01 to web-02
-# these scripts are an upgrade from the web-server scripts...
+# An upgrade from the web-server scripts
 
-# uncomment to see the script run in action
 #set -x
 
 echo -e "Updating and doing some minor checks...\n"
