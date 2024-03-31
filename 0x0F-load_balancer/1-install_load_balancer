@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
+# Installs and setup haproxy
 
-# Install HAProxy
 sudo apt update
 sudo apt install -y haproxy
 
@@ -34,10 +34,10 @@ frontend http_front
 
 backend http_back
     balance roundrobin
-    server web-01 18.234.168.254:80 check
-    server web-02 34.207.155.252:80 check
+    server 519830-web-01 18.234.168.254:80 check
+    server 519830-web-02 34.207.155.252:80 check
 EOT
 
 # Restart HAProxy
 
-sudo systemctl start haproxy
+service haproxy start
