@@ -10,26 +10,27 @@ if __name__ == '__main__':
     url = "https://jsonplaceholder.typicode.com/users"
 
     resp = requests.get(url)
-    Users = resp.json()
+    users = resp.json()
 
-    users_dict = {}
-    for user in Users:
-        USER_ID = user.get('id')
-        USERNAME = user.get('username')
-        url = 'https://jsonplaceholder.typicode.com/users/{}'.format(USER_ID)
-        url = url + '/todos/'
+    all_tasks = {}
+    for user in users:
+        user_id = user.get('id')
+        username = user.get('username')
+        url = f"https://jsonplaceholder.typicode.com/users/{user_id}/todos"
         resp = requests.get(url)
-
         tasks = resp.json()
-        users_dict[USER_ID] = []
+
+        user_tasks = []
         for task in tasks:
-            TASK_COMPLETED_STATUS = task.get('completed')
-            TASK_TITLE = task.get('title')
-            users_dict[USER_ID].append({
-                "task": TASK_TITLE,
-                "completed": TASK_COMPLETED_STATUS,
-                "username": USERNAME
+            task_completed_status = task.get('completed')
+            task_title = task.get('title')
+            user_tasks.append({
+                "task": task_title,
+                "completed": task_completed_status,
+                "username": username
             })
-            """A little Something"""
+
+        all_tasks[user_id] = user_tasks
+
     with open('todo_all_employees.json', 'w') as f:
-        json.dump(users_dict, f)
+        json.dump(all_tasks, f)
