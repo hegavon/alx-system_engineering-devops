@@ -5,15 +5,7 @@ import requests
 
 def recurse(subreddit, hot_list=None, after=None):
     """
-    A function that recursively fetches hot post titles from a subreddit.
-
-    Args:
-        subreddit (str): The name of the subreddit.
-        hot_list (list): A list to store hot post titles.
-        after (str): The "after" token for pagination.
-
-    Returns:
-        list: A list containing hot post titles from the subreddit.
+    A route that returns recurse
     """
     if hot_list is None:
         hot_list = []
@@ -23,19 +15,18 @@ def recurse(subreddit, hot_list=None, after=None):
 
     params = {"after": after} if after else {}
 
-    response = requests.get(url, headers=headers, params=params)
+    req = requests.get(url, headers=headers, params=params)
 
-    if response.status_code == 200:
-        data = response.json().get("data")
-        if data:
-            children = data.get("children")
-            for child in children:
-                title = child.get("data").get("title")
-                hot_list.append(title)
-            after = data.get("after")
-            if after is None:
-                return hot_list
-            else:
-                return recurse(subreddit, hot_list, after)
+    if req.status_code == 200:
+        for get_data in req.json().get("data").get("children"):
+            dat = get_data.get("data")
+            title = dat.get("title")
+            hot_list.append(title)
 
-    return None
+        after = req.json().get("data").get("after")
+        if after is None:
+            return hot_list
+        else:
+            return recurse(subreddit, hot_list, after)
+    else:
+        return None
