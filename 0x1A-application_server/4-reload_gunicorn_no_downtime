@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# Gracefully reloads Gunicorn.
+# Gracefully reloads Gunicorn
 
-ps aux | grep gunicorn | awk '{ print $2 }' | xargs kill -HUP
+# Get the master process ID of Gunicorn and send the HUP signal
+pgrep -f 'gunicorn' | xargs -r kill -HUP
