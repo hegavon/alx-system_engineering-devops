@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Gracefully reloads Gunicorn
+# Gracefully restart Gunicorn
 
 # Find the Gunicorn master process and send the HUP signal for graceful reload
 pgrep -f 'gunicorn: master' | xargs -r kill -HUP
